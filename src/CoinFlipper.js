@@ -16,15 +16,19 @@ class CoinFlipper extends Component {
 
     clickHandler(e) {
         let randSide = this.getRandFace();
-        let num = this.state.timesFlip + 1;
-        let faceTimes = this.state.faceSide;
-        let tailTimes = this.state.tailSide;
-        if (randSide === 'face') {
-            faceTimes += 1;
-        } else {
-            tailTimes += 1;
-        }
-        this.setState({timesFlip: num, side: randSide, faceSide: faceTimes, tailSide: tailTimes});
+        this.setState(st => {
+            const newState = {
+                ...st,
+                side: randSide,
+                timesFlip: st.timesFlip + 1
+            }
+            if (randSide === 'face') {
+                newState.faceSide += 1;
+            } else {
+                newState.tailSide += 1;
+            }
+            return newState;
+        })
     }
 
     render() {
